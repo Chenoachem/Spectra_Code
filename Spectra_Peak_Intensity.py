@@ -74,4 +74,4 @@ for line in file:
         ax1.set_ylabel("Flux Density (Jy/beam)",fontsize=18)
         ax1.tick_params(labelsize=15)
       
-        bigfig.savefig("Orion_"+str(ra)+"_"+str(round(xvals[0]/10**6,0))+"_.png")
+        bigfig.savefig("Orion_"+str(ra)+"_"+str(round(xvals[0],0))+"_.png")
