@@ -69,7 +69,7 @@ for line in file:
         bigfig=plt.figure(figsize=(20,12))
         ax1=bigfig.add_subplot(111)
         ax1.step(xvals,signal,color='blue')
-        ax1.set_title("Orion Nebula "+str(round(xvals[slice],2)+"Spectral RMS: "+RMS+" Local RMS: "+str(round(rms_number,2)),fontsize=18)
+        ax1.set_title("Orion Nebula "+str(round(xvals[slice],2))+"Spectral RMS: "+RMS2+" Local RMS: "+str(round(rms_number,2)),fontsize=18)
         ax1.set_xlabel("Frequency (MHz)",fontsize=18)
         ax1.set_ylabel("Flux Density (Jy/beam)",fontsize=18)
         ax1.tick_params(labelsize=15)
