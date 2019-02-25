@@ -48,7 +48,7 @@ for line in file:
 
     signal=[]
     for x in range(0, 100):
-        value = np.nanmean(data[:,x,xpix:xpix+1,ypix:ypix+1])
+        value = np.nanmean(data[:,x,ypix:ypix+1,xpix:xpix+1])
         #print rms_number_x
         signal.append(value)
     
@@ -60,8 +60,8 @@ for line in file:
 
     snr=np.divide(max_value,RMS)
 
-    slice=np.argmax(int_max_signal, axis=0)
-    rms_number = np.nanstd(data[:,slice,1000:1200,1000:1200])
+    sliced=np.argmax(int_max_signal, axis=0)
+    rms_number = np.nanstd(data[:,sliced,1000:1200,1000:1200])
 
     if RMS<0.5 and snr>4.5 and rms_number<0.6:
         with open('ra_dec_cat2', 'a') as f:
@@ -72,7 +72,7 @@ for line in file:
         bigfig=plt.figure(figsize=(20,12))
         ax1=bigfig.add_subplot(111)
         ax1.step(xvals,signal,color='blue')
-        ax1.set_title("Orion Nebula "+"Signal Max: "+str(round(max_value,2))+"Frequency: "+str(round(xvals[slice],2))+"Spectral RMS: "+RMS2+" Local RMS: "+str(round(rms_number,2)),fontsize=18)
+        ax1.set_title("Orion Nebula "+"Signal Max: "+str(round(max_value,2))+"Frequency: "+str(round(xvals[sliced],2))+"Spectral RMS: "+RMS2+" Local RMS: "+str(round(rms_number,2)),fontsize=18)
         ax1.set_xlabel("Frequency (MHz)",fontsize=18)
         ax1.set_ylabel("Flux Density (Jy/beam)",fontsize=18)
         ax1.tick_params(labelsize=15)
