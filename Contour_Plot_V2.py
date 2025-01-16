@@ -60,13 +60,13 @@ datacube = fits.open(mycube)
 data = datacube[0].data
 header = datacube[0].header
 
-
+#Choose the header components for frequency
 rp = datacube[0].header['CRPIX3']
 rf = datacube[0].header['CRVAL3']
 df = datacube[0].header['CDELT3']
 nf = datacube[0].header['NAXIS3']
 frequency=rf + df*(np.arange(nf)-rp)
-
+#Input for all the coordinates to create a plot for
 file=open(cat_files)
 for line in file:
     ra,dec = line.strip().split(",")
@@ -74,7 +74,7 @@ for line in file:
     dec=str(dec)
 #c = SkyCoord(ra, dec, unit=(u.hourangle, u.deg))
 
-
+#Convert the coordinates
     w = wcs.WCS(header, naxis=2)
 
 
@@ -83,7 +83,7 @@ for line in file:
     Dec=c.dec.deg
     Gal=c.galactic.l.degree
     Galb=c.galactic.b.degree
-    
+    #Convert to pixel values.
     xpix,ypix=c.to_pixel(w,origin=0,mode='wcs')
     xpix=int(xpix)
     ypix=int(ypix)
@@ -99,7 +99,7 @@ for line in file:
     max_signal=np.nan_to_num(signal)
     max_value=np.max(max_signal)
     sli=np.argmax(max_signal, axis=0)
-
+#Determine the contour levels by using a nearby pixel coordinates.
     rms_number = np.nanstd(data[:,slice,ypix+5:ypix+15,xpix+5:xpix+15])
     sig1=rms_number*3
     sig2=rms_number*4
